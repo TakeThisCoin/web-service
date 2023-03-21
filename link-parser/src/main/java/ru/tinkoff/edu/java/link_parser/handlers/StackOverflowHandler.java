@@ -1,17 +1,41 @@
 package ru.tinkoff.edu.java.link_parser.handlers;
 
-public class StackOverflowHandler implements Handler{
+import ru.tinkoff.edu.java.link_parser.ParsersAnswer;
 
-    public static String handle(String entry){
-        if(!entry.contains("questions/") || entry.split("questions/").length < 2)
-            return null;
+public class StackOverflowHandler extends Handler{
 
-        String id = entry.split("questions/")[1].split("/")[0];
+    public StackOverflowHandler(Handler nextHandler) {
+        super(nextHandler);
+    }
+
+    @Override
+    public ParsersAnswer handle(final String entry) {
+        String entry_l = entry;
+
+        if(!entry_l.contains("://") || entry_l.split("://").length != 2)
+            return toNextHandler(entry);
+
+        entry_l = entry_l.split("://")[1];
+
+        if(!entry_l.contains("/") || entry_l.split("/").length < 2)
+            return toNextHandler(entry);
+
+        String hostname = entry_l.split("/")[0];
+        entry_l = entry_l.substring(hostname.length()+1);
+
+
+        if(!hostname.equals("stackoverflow.com"))
+            return toNextHandler(entry);
+
+        if(!entry_l.contains("questions/") || entry_l.split("questions/").length < 2)
+            return toNextHandler(entry);
+
+        String id = entry_l.split("questions/")[1].split("/")[0];
 
         if(id.matches("\\d+")){
-            return id;
+            return new ParsersAnswer(id);
         }else {
-            return null;
+            return toNextHandler(entry);
         }
     }
 }
