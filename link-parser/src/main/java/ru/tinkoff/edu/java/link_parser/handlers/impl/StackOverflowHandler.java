@@ -1,8 +1,9 @@
-package ru.tinkoff.edu.java.link_parser.handlers;
+package ru.tinkoff.edu.java.link_parser.handlers.impl;
 
 import ru.tinkoff.edu.java.link_parser.ParsersAnswer;
+import ru.tinkoff.edu.java.link_parser.handlers.Handler;
 
-public class StackOverflowHandler extends Handler{
+public class StackOverflowHandler extends Handler {
 
     public StackOverflowHandler(Handler nextHandler) {
         super(nextHandler);
