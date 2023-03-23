@@ -10,27 +10,25 @@ public class GitHubHandler extends Handler{
 
     @Override
     public ParsersAnswer handle(final String entry) {
-        String entry_l = entry;
-
-        if(!entry_l.contains("://") || entry_l.split("://").length != 2)
+        if(!entry.contains("://") || entry.split("://").length != 2)
             return toNextHandler(entry);
 
-        entry_l = entry_l.split("://")[1];
+        final String entryWithoutProtocol = entry.split("://")[1];
 
-        if(!entry_l.contains("/") || entry_l.split("/").length < 2)
+        if(!entryWithoutProtocol.contains("/") || entryWithoutProtocol.split("/").length < 2)
             return toNextHandler(entry);
 
-        String hostname = entry_l.split("/")[0];
-        entry_l = entry_l.substring(hostname.length()+1);
+        final String hostname = entryWithoutProtocol.split("/")[0];
+        final String path = entryWithoutProtocol.substring(hostname.length()+1);
 
         if(!hostname.equals("github.com"))
             return toNextHandler(entry);
 
-        if(!entry_l.contains("/") || entry_l.split("/").length < 2)
-            return toNextHandler(entry_l);
+        if(!path.contains("/") || path.split("/").length < 2)
+            return toNextHandler(entry);
 
-        String user = entry_l.split("/")[0];
-        String repo = entry_l.split("/")[1];
+        final String user = path.split("/")[0];
+        final String repo = path.split("/")[1];
 
         if(user.length() > 0 && repo.length() > 0){
             return new ParsersAnswer(user+"/"+repo);
