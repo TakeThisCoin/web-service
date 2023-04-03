@@ -44,7 +44,7 @@ public class ChatController {
     })
     public void deleteChat(@PathVariable long id){
         if(!chatIds.contains(id))
-            throw new NotExists404Exception("Чат не существует", "NotExists404Exception", "Чат с id = " + id + ", не существует!", new ArrayList<>());
+            throw new NotExists404Exception(id+"");
         chatIds.remove(id);
     }
 }

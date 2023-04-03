@@ -62,7 +62,7 @@ public class LinkController {
     public LinkResponse deleteLink(@RequestHeader("Tg-Chat-Id") long tgChatId, @RequestBody @Valid RemoveLinkRequest removeLinkRequest){
         LinkResponse linkWhoWillBeDeleted = null;
         for (LinkResponse linkResponse: links) {
-            if(linkResponse.url().equals(removeLinkRequest.link())){
+            if(linkResponse.url().compareTo(removeLinkRequest.link()) == 0){
                 linkWhoWillBeDeleted = linkResponse;
                 break;
             }
@@ -71,7 +71,7 @@ public class LinkController {
         links.remove(linkWhoWillBeDeleted);
 
         if(linkWhoWillBeDeleted == null)
-            throw new NotExists404Exception("Ссылка не найдена", "NotExists404Exception", "Ссылка " + removeLinkRequest.link() + ", не была найдена!", new ArrayList<>());
+            throw new NotExists404Exception(removeLinkRequest.link().toString());
         else
             return linkWhoWillBeDeleted;
     }

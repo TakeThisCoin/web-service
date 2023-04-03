@@ -13,19 +13,18 @@ public class ClientConfig {
 
     @Bean
     GitHubClient gitHubClient(ApplicationConfig applicationConfig) {
-        WebClient client = WebClient.builder()
-                .baseUrl(applicationConfig.githubApiPath().toString())
-                .build();
-        HttpServiceProxyFactory factory = HttpServiceProxyFactory.builder(WebClientAdapter.forClient(client)).build();
-        return factory.createClient(GitHubClient.class);
+        return createWebClient(GitHubClient.class, applicationConfig.githubApiPath().toString());
     }
 
     @Bean
     StackOverflowClient stackOverflowClient(ApplicationConfig applicationConfig) {
-        WebClient client = WebClient.builder()
-                .baseUrl(applicationConfig.stackExchangeApiPath().toString())
-                .build();
+        return createWebClient(StackOverflowClient.class, applicationConfig.stackExchangeApiPath().toString());
+    }
+
+    private <T> T createWebClient(Class<T> clientClass, String baseUrl) {
+        WebClient client = WebClient.builder().baseUrl(baseUrl).build();
         HttpServiceProxyFactory factory = HttpServiceProxyFactory.builder(WebClientAdapter.forClient(client)).build();
-        return factory.createClient(StackOverflowClient.class);
+
+        return factory.createClient(clientClass);
     }
 }

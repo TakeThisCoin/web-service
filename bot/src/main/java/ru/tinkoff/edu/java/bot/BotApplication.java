@@ -11,7 +11,7 @@ import ru.tinkoff.edu.java.bot.configuration.ApplicationConfig;
 public class BotApplication {
     public static void main(String[] args) {
         ApplicationContext ctx = SpringApplication.run(BotApplication.class, args);
-        BotApplication config = ctx.getBean(BotApplication.class);
+        ApplicationConfig config = ctx.getBean(ApplicationConfig.class);
         System.out.println(config);
     }
 }
