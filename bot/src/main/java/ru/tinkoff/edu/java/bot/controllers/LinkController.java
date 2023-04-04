@@ -7,6 +7,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -34,6 +35,6 @@ public class LinkController {
     })
     public ResponseEntity<Void> createUpdateRequest(@RequestBody @Valid LinkUpdateRequest linkUpdateRequest){
         updateRequests.add(linkUpdateRequest);
-        return new ResponseEntity<Void>(HttpStatusCode.valueOf(200));
+        return new ResponseEntity<Void>(HttpStatus.OK);
     }
 }

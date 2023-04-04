@@ -1,6 +1,7 @@
 package ru.tinkoff.edu.java.scrapper.advices;
 
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -58,7 +59,7 @@ public class CustomExceptionAdvice {
                         exception.getClass().getName(),
                         exception.getMessage(),
                         Arrays.stream(exception.getStackTrace()).map(StackTraceElement::toString).toList()),
-                HttpStatusCode.valueOf(500)
+                HttpStatus.INTERNAL_SERVER_ERROR
         );
     }
 }

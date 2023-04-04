@@ -1,5 +1,6 @@
 package ru.tinkoff.edu.java.bot.advices;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -24,7 +25,7 @@ public class CustomExceptionAdvice {
     public ResponseEntity<ApiErrorResponse> handleUnknownException(Exception exception){
         return new ResponseEntity<ApiErrorResponse>(
                 new ApiErrorResponse("Неизвестная ошибка", "500", exception.getClass().getName(), exception.getMessage(), Arrays.stream(exception.getStackTrace()).map(StackTraceElement::toString).toList()),
-                HttpStatusCode.valueOf(500)
+                HttpStatus.INTERNAL_SERVER_ERROR
         );
     }
 
