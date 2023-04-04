@@ -1,5 +1,6 @@
 package ru.tinkoff.edu.java.scrapper.configuration;
 
+import org.springframework.boot.context.properties.bind.DefaultValue;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -18,7 +19,7 @@ public class ClientConfig {
 
     @Bean
     StackOverflowClient stackOverflowClient(ApplicationConfig applicationConfig) {
-        return createWebClient(StackOverflowClient.class, applicationConfig.stackExchangeApiPath().toString());
+        return createWebClient(StackOverflowClient.class, applicationConfig.stackExchangeApiPath().toString()+"/"+applicationConfig.stackExchangeApiVersion());
     }
 
     private <T> T createWebClient(Class<T> clientClass, String baseUrl) {

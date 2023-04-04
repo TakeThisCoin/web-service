@@ -6,6 +6,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import ru.tinkoff.edu.java.scrapper.dto.stackexchange.responses.StackExchangeQuestionsResponse;
 
 public interface StackOverflowClient{
-    @GetMapping("/{version}/questions/{ids}?site=stackoverflow")
-    StackExchangeQuestionsResponse fetchQuestions(@PathVariable String version, @PathVariable String ids);
+    @GetMapping("/questions/{ids}?site=stackoverflow")
+    StackExchangeQuestionsResponse fetchQuestions(@PathVariable String ids);
 }
