@@ -1,12 +1,11 @@
-package ru.tinkoff.edu.java.bot.advices;
+package ru.tinkoff.edu.java.bot.web.advices;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
-import ru.tinkoff.edu.java.bot.dto.responses.ApiErrorResponse;
+import ru.tinkoff.edu.java.bot.web.dto.responses.ApiErrorResponse;
 
 import java.util.Arrays;
 

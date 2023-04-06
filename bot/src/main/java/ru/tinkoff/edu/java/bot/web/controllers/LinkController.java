@@ -1,4 +1,4 @@
-package ru.tinkoff.edu.java.bot.controllers;
+package ru.tinkoff.edu.java.bot.web.controllers;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -6,19 +6,12 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ru.tinkoff.edu.java.bot.dto.requests.LinkUpdateRequest;
-import ru.tinkoff.edu.java.bot.dto.responses.ApiErrorResponse;
+import ru.tinkoff.edu.java.bot.web.dto.requests.LinkUpdateRequest;
+import ru.tinkoff.edu.java.bot.web.dto.responses.ApiErrorResponse;
 
-import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.ArrayList;
 
 @RestController

@@ -21,6 +21,10 @@
         <spring-cloud.version>2022.0.0</spring-cloud.version>
         <spring-boot.version>3.0.1</spring-boot.version>
         <springdoc-openapi-starter-webmvc-api.version>2.0.2</springdoc-openapi-starter-webmvc-api.version>
+        <org.telegram.telegrambots.version>6.5.0</org.telegram.telegrambots.version>
+        <junit-jupiter.version>5.9.2</junit-jupiter.version>
+        <mockito-core.version>5.2.0</mockito-core.version>
+        <mockito-junit-jupiter.version>4.6.1</mockito-junit-jupiter.version>
     </properties>
 
     <dependencyManagement>
@@ -45,10 +49,30 @@
                 <artifactId>springdoc-openapi-starter-webmvc-api</artifactId>
                 <version>${springdoc-openapi-starter-webmvc-api.version}</version>
             </dependency>
+
+            <dependency>
+                <groupId>org.telegram</groupId>
+                <artifactId>telegrambots</artifactId>
+                <version>${org.telegram.telegrambots.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
     <build>
+
+        <plugins>
+            <!-- Unit тесты-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+            </plugin>
+
+        </plugins>
+
         <pluginManagement>
             <plugins>
                 <plugin>
@@ -94,6 +118,26 @@
             <artifactId>annotations</artifactId>
             <version>23.1.0</version>
             <scope>provided</scope>
+        </dependency>
+
+        <!-- Unit тестирование -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>${junit-jupiter.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>${mockito-core.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-junit-jupiter</artifactId>
+            <version>${mockito-junit-jupiter.version}</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 </project>

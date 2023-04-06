@@ -1,4 +1,4 @@
-package ru.tinkoff.edu.java.bot.dto.requests;
+package ru.tinkoff.edu.java.bot.web.dto.requests;
 
 
 import jakarta.validation.constraints.NotNull;

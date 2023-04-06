@@ -1,16 +1,16 @@
 package ru.tinkoff.edu.java.link_parser.handlers.impl;
 
-import ru.tinkoff.edu.java.link_parser.ParsersAnswer;
-import ru.tinkoff.edu.java.link_parser.handlers.Handler;
+import ru.tinkoff.edu.java.link_parser.ParserAnswer;
+import ru.tinkoff.edu.java.link_parser.handlers.Parser;
 
-public class GitHubHandler extends Handler {
+public class StackOverflowParser extends Parser {
 
-    public GitHubHandler(Handler nextHandler) {
-        super(nextHandler);
+    public StackOverflowParser(Parser nextParser) {
+        super(nextParser);
     }
 
     @Override
-    public ParsersAnswer handle(final String entry) {
+    public ParserAnswer handle(final String entry) {
         if(!entry.contains("://") || entry.split("://").length != 2)
             return toNextHandler(entry);
 
@@ -22,20 +22,18 @@ public class GitHubHandler extends Handler {
         final String hostname = entryWithoutProtocol.split("/")[0];
         final String path = entryWithoutProtocol.substring(hostname.length()+1);
 
-        if(!hostname.equals("github.com"))
+        if(!hostname.equals("stackoverflow.com"))
             return toNextHandler(entry);
 
-        if(!path.contains("/") || path.split("/").length < 2)
+        if(!path.contains("questions/") || path.split("questions/").length < 2)
             return toNextHandler(entry);
 
-        final String user = path.split("/")[0];
-        final String repo = path.split("/")[1];
+        final String id = path.split("questions/")[1].split("/")[0];
 
-        if(user.length() > 0 && repo.length() > 0){
-            return new ParsersAnswer(user+"/"+repo);
+        if(id.matches("\\d+")){
+            return new ParserAnswer(id);
+        }else {
+            return toNextHandler(entry);
         }
-
-        return toNextHandler(entry);
     }
-
 }
