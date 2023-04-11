@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.telegram.telegrambots.meta.api.objects.Chat;
@@ -15,6 +16,7 @@ import ru.tinkoff.edu.java.bot.configuration.TelegramBotConfig;
 import ru.tinkoff.edu.java.bot.telegram.handlers.Handler;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -22,9 +24,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ExtendWith(MockitoExtension.class)
 class MyTelegramBotTest {
+
+    @Mock
+    ApplicationConfig applicationConfig;
+
     @Test
     public void unknownCommand(){
-        ApplicationConfig applicationConfig = Mockito.mock(ApplicationConfig.class);
         TelegramBotConfig telegramBotConfig = new TelegramBotConfig("123", "123");
         Mockito.when(applicationConfig.telegramBot()).thenReturn(telegramBotConfig);
         MyTelegramBot myTelegramBot = new MyTelegramBot(applicationConfig, null, null);

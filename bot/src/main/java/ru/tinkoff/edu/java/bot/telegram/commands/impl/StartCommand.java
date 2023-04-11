@@ -7,6 +7,7 @@ import ru.tinkoff.edu.java.bot.telegram.commands.Command;
 
 @Component
 public class StartCommand implements Command {
+
     @Override
     public String command() {
         return "/start";
