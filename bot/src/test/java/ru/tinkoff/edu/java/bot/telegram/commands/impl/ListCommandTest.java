@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -27,6 +28,8 @@ class ListCommandTest {
 
     @Mock
     ScrapperClient scrapperClient;
+    @InjectMocks
+    ListCommand listCommand;
 
     @BeforeAll
     static void setUp() {
@@ -49,8 +52,6 @@ class ListCommandTest {
     public void testEmpty(){
         Mockito.when(scrapperClient.getLinks(USER_ID)).thenReturn(new ListLinksResponse(new ArrayList<LinkResponse>(), 0));
 
-        ListCommand listCommand = new ListCommand(scrapperClient);
-
         String message = listCommand.execute(update).getText();
         Assertions.assertEquals("Список ссылок пуст!", message);
     }
@@ -67,8 +68,6 @@ class ListCommandTest {
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
-
-        ListCommand listCommand = new ListCommand(scrapperClient);
 
         String message = listCommand.execute(update).getText();
 
