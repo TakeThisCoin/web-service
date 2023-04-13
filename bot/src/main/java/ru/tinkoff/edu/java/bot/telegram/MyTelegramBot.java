@@ -23,6 +23,7 @@ import ru.tinkoff.edu.java.bot.telegram.handlers.Handler;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -39,10 +40,7 @@ public class MyTelegramBot extends TelegramLongPollingBot {
 
         this.telegramBotConfig = applicationConfig.telegramBot();
 
-        if(handlers != null)
-            this.handlers = handlers;
-        else
-            this.handlers = new ArrayList<>();
+        this.handlers = Objects.requireNonNullElseGet(handlers, ArrayList::new);
 
         if(commands != null){
             List<BotCommand> botCommands = commands.stream().map(Command::toApiCommand).collect(Collectors.toList());
