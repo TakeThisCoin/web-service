@@ -1,10 +1,10 @@
 package ru.tinkoff.edu.java.link_parser;
 
-import ru.tinkoff.edu.java.link_parser.handlers.impl.GitHubHandler;
-import ru.tinkoff.edu.java.link_parser.handlers.impl.StackOverflowHandler;
+import ru.tinkoff.edu.java.link_parser.handlers.impl.GitHubParser;
+import ru.tinkoff.edu.java.link_parser.handlers.impl.StackOverflowParser;
 
 public class LinkParser {
-    public ParsersAnswer parse(String url){
-        return new GitHubHandler(new StackOverflowHandler(null)).handle(url);
+    public ParserAnswer parse(String url){
+        return new GitHubParser(new StackOverflowParser(null)).handle(url);
     }
 }

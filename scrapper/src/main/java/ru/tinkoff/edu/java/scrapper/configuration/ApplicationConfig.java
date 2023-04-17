@@ -13,7 +13,7 @@ import java.time.Duration;
 
 @Validated
 @ConfigurationProperties(prefix = "app", ignoreUnknownFields = false)
-public record ApplicationConfig(@NotEmpty @DefaultValue("https://api.github.com") URI githubApiPath,
-                                @NotEmpty @DefaultValue("https://api.stackexchange.com") URI stackExchangeApiPath,
+public record ApplicationConfig(@NotNull @DefaultValue("https://api.github.com") URI githubApiBaseUri,
+                                @NotNull @DefaultValue("https://api.stackexchange.com") URI stackExchangeApiBaseUri,
                                 @NotEmpty @DefaultValue("2.3") String stackExchangeApiVersion,
                                 @NotNull Duration scheduler) {}

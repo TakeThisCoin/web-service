@@ -1,4 +1,4 @@
 package ru.tinkoff.edu.java.link_parser;
 
-public record ParsersAnswer(String value) {
+public record ParserAnswer(String value) {
 }
