@@ -25,6 +25,7 @@
         <junit-jupiter.version>5.9.2</junit-jupiter.version>
         <mockito-core.version>5.2.0</mockito-core.version>
         <mockito-junit-jupiter.version>4.6.1</mockito-junit-jupiter.version>
+        <testcontainers.version>1.17.6</testcontainers.version>
     </properties>
 
     <dependencyManagement>
@@ -54,6 +55,14 @@
                 <groupId>org.telegram</groupId>
                 <artifactId>telegrambots</artifactId>
                 <version>${org.telegram.telegrambots.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.testcontainers</groupId>
+                <artifactId>testcontainers-bom</artifactId>
+                <version>${testcontainers.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>
