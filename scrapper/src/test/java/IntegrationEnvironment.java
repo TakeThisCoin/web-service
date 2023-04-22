@@ -12,15 +12,14 @@ import java.nio.file.Path;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
-public class IntegrationEnvironment extends AbstractPostgreSqlContainer{
-
+public abstract class IntegrationEnvironment extends AbstractPostgreSqlContainer{
 
     static {
         init();
     }
 
     @SneakyThrows
-    public static void init(){
+    private static void init(){
         Database database = DatabaseFactory.getInstance().findCorrectDatabaseImplementation((new JdbcConnection(getConnection())));
         Liquibase liquibase = new liquibase.Liquibase("master.xml", new DirectoryResourceAccessor(getMigrationsPath()), database);
         liquibase.update();
@@ -36,7 +35,7 @@ public class IntegrationEnvironment extends AbstractPostgreSqlContainer{
     }
 
 
-    public static Path getMigrationsPath(){
-        return new File(".").toPath().toAbsolutePath().getParent().getParent().resolve("migrations");
+    private static Path getMigrationsPath(){
+        return new File(".").toPath().toAbsolutePath().getParent().resolve("migrations");
     }
 }

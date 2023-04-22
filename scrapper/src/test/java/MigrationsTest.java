@@ -10,12 +10,12 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertIterableEquals;
 
-public class MigrationsTest {
+public class MigrationsTest extends IntegrationEnvironment{
 
     @Test
     @SneakyThrows
     public void tablesIsCreatable() {
-        Connection dbConnection = IntegrationEnvironment.getConnection();
+        Connection dbConnection = getConnection();
         Statement statement = dbConnection.createStatement();
         String sql = "SELECT table_name" +
                     " FROM information_schema.tables" +
