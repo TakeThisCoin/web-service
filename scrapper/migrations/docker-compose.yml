@@ -1,0 +1,48 @@
+version: '3'
+
+services:
+
+  db:
+    image: postgres:15
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=qwer123
+      - POSTGRES_DB=scrapper
+    ports:
+      - 5051:5432
+    networks:
+      - backend
+      
+  pgadmin:
+    image: dpage/pgadmin4:6
+    depends_on:
+      - db
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=user@domain.com
+      - PGADMIN_DEFAULT_PASSWORD=admin
+      - PGADMIN_LISTEN_ADDRESS=0.0.0.0
+    ports:
+      - 5050:80
+    networks:
+      - backend
+
+  liquibase-migrations:
+    image: liquibase/liquibase:4.18
+    depends_on:
+      - db
+    command:
+      - --hub-mode=off
+      - --changelog-file=master.xml
+      - --driver=org.postgresql.Driver
+      - --url=jdbc:postgresql://db:5432/scrapper
+      - --username=postgres
+      - --password=qwer123
+      - update
+    volumes:
+      - ./migrations:/liquibase/changelog
+    networks:
+      - backend
+      
+networks:
+  backend:
