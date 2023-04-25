@@ -4,7 +4,8 @@ import jakarta.validation.constraints.NotNull;
 import org.springframework.validation.annotation.Validated;
 
 import java.net.URI;
+import java.util.List;
 
 @Validated
-public record RemoveLinkRequest(@NotNull URI link) {
+public record BotUpdatesRequest(long id, @NotNull URI url, String description, List<Long> tgChatIds) {
 }

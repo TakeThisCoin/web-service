@@ -5,14 +5,12 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import org.springframework.http.HttpStatusCode;
-import org.springframework.http.ResponseEntity;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.reactive.function.client.WebClient;
-import ru.tinkoff.edu.java.scrapper.dto.github.responses.GitHubRepositoryResponse;
 import ru.tinkoff.edu.java.scrapper.dto.responses.ApiErrorResponse;
-import ru.tinkoff.edu.java.scrapper.dto.stackexchange.responses.StackExchangeQuestionsResponse;
 import ru.tinkoff.edu.java.scrapper.exceptions.NotExists404Exception;
+import ru.tinkoff.edu.java.scrapper.service.ChatService;
+import ru.tinkoff.edu.java.scrapper.service.LinkService;
 
 import java.util.ArrayList;
 
@@ -20,7 +18,8 @@ import java.util.ArrayList;
 @RequestMapping("/tg-chat")
 public class ChatController {
 
-    public ArrayList<Long> chatIds = new ArrayList<>();
+    @Autowired
+    ChatService chatService;
 
     @PostMapping("/{id}")
     @Operation(summary = "Зарегистрировать чат")
@@ -30,7 +29,7 @@ public class ChatController {
                     mediaType = "application/json"), description = "Некорректные параметры запроса")
     })
     public void createChat(@PathVariable long id){
-        chatIds.add(id);
+        chatService.register(id);
     }
 
     @DeleteMapping("/{id}")
@@ -43,8 +42,6 @@ public class ChatController {
                     mediaType = "application/json"))
     })
     public void deleteChat(@PathVariable long id){
-        if(!chatIds.contains(id))
-            throw new NotExists404Exception(id+"");
-        chatIds.remove(id);
+        chatService.unregister(id);
     }
 }

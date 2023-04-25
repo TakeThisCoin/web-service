@@ -5,23 +5,32 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import io.swagger.v3.oas.models.links.Link;
 import jakarta.validation.Valid;
+import lombok.SneakyThrows;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import ru.tinkoff.edu.java.scrapper.domain.dto.LinkDTO;
 import ru.tinkoff.edu.java.scrapper.dto.requests.AddLinkRequest;
+import ru.tinkoff.edu.java.scrapper.dto.requests.BotUpdatesRequest;
 import ru.tinkoff.edu.java.scrapper.dto.requests.RemoveLinkRequest;
 import ru.tinkoff.edu.java.scrapper.dto.responses.ApiErrorResponse;
 import ru.tinkoff.edu.java.scrapper.dto.responses.LinkResponse;
 import ru.tinkoff.edu.java.scrapper.dto.responses.ListLinksResponse;
 import ru.tinkoff.edu.java.scrapper.exceptions.NotExists404Exception;
+import ru.tinkoff.edu.java.scrapper.service.LinkService;
+import ru.tinkoff.edu.java.scrapper.webclients.BotClient;
 
+import java.net.URI;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 @RestController
 @RequestMapping("/links")
 public class LinkController {
 
-    ArrayList<LinkResponse> links = new ArrayList<LinkResponse>();
+    @Autowired
+    LinkService linkService;
 
     @GetMapping()
     @Operation(summary = "Получить все отслеживаемые ссылки")
@@ -32,6 +41,13 @@ public class LinkController {
                     mediaType = "application/json"), description = "Некорректные параметры запроса")
     })
     public ListLinksResponse requestLinks(@RequestHeader("Tg-Chat-Id") long tgChatId){
+        ArrayList<LinkResponse> links = new ArrayList<LinkResponse>();
+        Collection<LinkDTO> linksDTO = linkService.listAll(tgChatId);
+        for (LinkDTO link :
+                linksDTO) {
+            links.add(new LinkResponse(link.id(), link.url()));
+        }
+        
         return new ListLinksResponse(links, links.size());
     }
 
@@ -44,8 +60,9 @@ public class LinkController {
                     mediaType = "application/json"), description = "Некорректные параметры запроса")
     })
     public LinkResponse createLink(@RequestHeader("Tg-Chat-Id") long tgChatId, @RequestBody @Valid AddLinkRequest link){
-        LinkResponse linkResponse = new LinkResponse(tgChatId, link.link());
-        links.add(linkResponse);
+        LinkDTO linkDTO = linkService.add(tgChatId, link.link());
+        LinkResponse linkResponse = new LinkResponse(linkDTO.id(), linkDTO.url());
+
         return linkResponse;
     }
 
@@ -60,19 +77,9 @@ public class LinkController {
                     mediaType = "application/json"))
     })
     public LinkResponse deleteLink(@RequestHeader("Tg-Chat-Id") long tgChatId, @RequestBody @Valid RemoveLinkRequest removeLinkRequest){
-        LinkResponse linkWhoWillBeDeleted = null;
-        for (LinkResponse linkResponse: links) {
-            if(linkResponse.url().compareTo(removeLinkRequest.link()) == 0){
-                linkWhoWillBeDeleted = linkResponse;
-                break;
-            }
-        }
+        LinkDTO linkDTO = linkService.remove(tgChatId, removeLinkRequest.link());
+        LinkResponse response = new LinkResponse(linkDTO.id(), linkDTO.url());
 
-        links.remove(linkWhoWillBeDeleted);
-
-        if(linkWhoWillBeDeleted == null)
-            throw new NotExists404Exception(removeLinkRequest.link().toString());
-        else
-            return linkWhoWillBeDeleted;
+        return response;
     }
 }

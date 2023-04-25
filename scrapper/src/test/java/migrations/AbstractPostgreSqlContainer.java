@@ -1,3 +1,5 @@
+package migrations;
+
 import org.testcontainers.containers.PostgreSQLContainer;
 
 public abstract class AbstractPostgreSqlContainer {

@@ -2,9 +2,7 @@ package ru.tinkoff.edu.java.scrapper.advices;
 
 
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingRequestHeaderException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -13,7 +11,6 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 import ru.tinkoff.edu.java.scrapper.dto.responses.ApiErrorResponse;
 import ru.tinkoff.edu.java.scrapper.exceptions.NotExists404Exception;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 
 @RestControllerAdvice

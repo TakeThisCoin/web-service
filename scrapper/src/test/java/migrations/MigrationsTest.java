@@ -1,3 +1,5 @@
+package migrations;
+
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;
 
@@ -33,7 +35,7 @@ public class MigrationsTest extends IntegrationEnvironment{
                 "databasechangeloglock",
                 "databasechangelog",
                 "chat",
-                "chat-link",
+                "chat_link",
                 "link"
         );
 
