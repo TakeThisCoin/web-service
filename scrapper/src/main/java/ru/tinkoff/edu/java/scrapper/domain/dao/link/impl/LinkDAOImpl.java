@@ -9,6 +9,7 @@ import ru.tinkoff.edu.java.scrapper.domain.dao.link.LinkDAO;
 import ru.tinkoff.edu.java.scrapper.domain.dao.link.LinkMapper;
 import ru.tinkoff.edu.java.scrapper.domain.dto.LinkDTO;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 @Component
@@ -18,7 +19,6 @@ public class LinkDAOImpl implements LinkDAO {
 
     @Override
     public LinkDTO add(String url) {
-        // jdbcTemplate.update("INSERT INTO link(url) VALUES (?);", url);
         return jdbcTemplate.queryForObject("INSERT INTO link(url) VALUES (?) RETURNING *;", new LinkMapper(), url);
     }
 
@@ -35,5 +35,16 @@ public class LinkDAOImpl implements LinkDAO {
     @Override
     public List<LinkDTO> findAll() {
         return jdbcTemplate.query("SELECT * FROM link", new LinkMapper());
+    }
+
+    @Override
+    public List<LinkDTO> findAllOutdated(Timestamp timePassed) {
+        return jdbcTemplate.query("SELECT * FROM link WHERE (extract(epoch from now())::integer - extract(epoch from last_check)::integer) >= ?;", new LinkMapper(), timePassed.getTime());
+    }
+
+    @Override
+    public LinkDTO updateLastCheck(LinkDTO linkDTO) {
+        jdbcTemplate.update("UPDATE link SET last_check = now() WHERE id = ?", linkDTO.id());
+        return findByUrl(linkDTO.url().toString());
     }
 }

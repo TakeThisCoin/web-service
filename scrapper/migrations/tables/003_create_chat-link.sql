@@ -13,5 +13,5 @@ CREATE TABLE IF NOT EXISTS "chat_link"(
         ON UPDATE NO ACTION
         ON DELETE NO ACTION,
 	CONSTRAINT "uq_chat-link" UNIQUE(chat_id, link_id),
-	PRIMARY KEY (chat_id, link_id)
+	CONSTRAINT "chat_link_pkey" PRIMARY KEY (chat_id, link_id)
 );

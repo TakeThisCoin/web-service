@@ -90,4 +90,13 @@ class LinkDAOImplTest extends IntegrationEnvironment {
         linkDAO.remove(newLink);
         linkDAO.remove(newLink1);
     }
+
+    @SneakyThrows
+    @Test
+    void checkTimestamp(){
+        LinkDTO expectedLink = linkDAO.add("https://link1234");
+        LinkDTO actualLink = linkDAO.findByUrl("https://link1234");
+
+        assertEquals(expectedLink.last_update().getTime(), actualLink.last_update().getTime());
+    }
 }

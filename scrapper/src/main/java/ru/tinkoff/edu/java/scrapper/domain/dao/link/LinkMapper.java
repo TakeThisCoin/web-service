@@ -15,7 +15,7 @@ public class LinkMapper implements RowMapper<LinkDTO> {
     @SneakyThrows(URISyntaxException.class)
     @Override
     public LinkDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
-        return new LinkDTO(rs.getLong("id"), new URI(rs.getString("url")));
+        return new LinkDTO(rs.getLong("id"), new URI(rs.getString("url")), rs.getTimestamp("last_check"));
     }
 
 }

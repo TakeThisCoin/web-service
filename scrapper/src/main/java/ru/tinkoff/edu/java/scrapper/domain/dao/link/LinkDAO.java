@@ -2,6 +2,7 @@ package ru.tinkoff.edu.java.scrapper.domain.dao.link;
 
 import ru.tinkoff.edu.java.scrapper.domain.dto.LinkDTO;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 public interface LinkDAO {
@@ -9,4 +10,6 @@ public interface LinkDAO {
     LinkDTO findByUrl(String link);
     void remove(LinkDTO linkDTO);
     List<LinkDTO> findAll();
+    List<LinkDTO> findAllOutdated(Timestamp before);
+    LinkDTO updateLastCheck(LinkDTO linkDTO);
 }

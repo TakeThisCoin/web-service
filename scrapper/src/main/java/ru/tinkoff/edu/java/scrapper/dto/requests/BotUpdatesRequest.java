@@ -7,5 +7,5 @@ import java.net.URI;
 import java.util.List;
 
 @Validated
-public record BotUpdatesRequest(long id, @NotNull URI url, String description, List<Long> tgChatIds) {
+public record BotUpdatesRequest(@NotNull URI url, String description, List<Long> tgChatIds) {
 }

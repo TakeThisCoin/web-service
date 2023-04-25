@@ -103,6 +103,11 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-jdbc</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>org.example</groupId>
+            <artifactId>link-parser</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

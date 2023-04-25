@@ -9,5 +9,5 @@ import ru.tinkoff.edu.java.scrapper.dto.responses.BotUpdatesResponse;
 
 public interface BotClient {
     @PostExchange("/updates")
-    BotUpdatesResponse fetchUpdates(@RequestBody BotUpdatesRequest body);
+    BotUpdatesResponse sendUpdates(@RequestBody BotUpdatesRequest body);
 }
