@@ -97,6 +97,6 @@ class LinkDAOImplTest extends IntegrationEnvironment {
         LinkDTO expectedLink = linkDAO.add("https://link1234");
         LinkDTO actualLink = linkDAO.findByUrl("https://link1234");
 
-        assertEquals(expectedLink.last_update().getTime(), actualLink.last_update().getTime());
+        assertEquals(expectedLink.last_check().getTime(), actualLink.last_check().getTime());
     }
 }

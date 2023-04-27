@@ -20,7 +20,12 @@ public class JdbcLinkService implements LinkService {
 
     @Override
     public LinkDTO add(long tgChatId, URI url) {
-        LinkDTO linkDTO = linkDAO.add(url.toString());
+        LinkDTO linkDTO;
+        if(!linkDAO.contains(url.toString())){
+            linkDTO = linkDAO.add(url.toString());
+        }else {
+            linkDTO = linkDAO.findByUrl(url.toString());
+        }
         ChatLinkDTO chatLinkDTO = new ChatLinkDTO(tgChatId, linkDTO.id());
         chatLinkDAO.add(chatLinkDTO);
         return linkDTO;

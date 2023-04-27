@@ -31,4 +31,10 @@ public class ChatLinkDAOImpl implements ChatLinkDAO {
     public List<ChatLinkDTO> findAll() {
         return jdbcTemplate.query("SELECT * FROM chat_link", new ChatLinkMapper());
     }
+
+    @Override
+    public List<ChatLinkDTO> findAllByLink(long linkId) {
+        return jdbcTemplate.query("SELECT * FROM chat_link WHERE link_id = ?", new ChatLinkMapper(), linkId);
+    }
+
 }

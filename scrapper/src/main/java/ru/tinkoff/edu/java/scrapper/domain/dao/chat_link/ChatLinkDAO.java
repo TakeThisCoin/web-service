@@ -9,4 +9,5 @@ public interface ChatLinkDAO {
     ChatLinkDTO add(ChatLinkDTO chatLink);
     void remove(ChatLinkDTO chatLink);
     List<ChatLinkDTO> findAll();
+    List<ChatLinkDTO> findAllByLink(long linkId);
 }

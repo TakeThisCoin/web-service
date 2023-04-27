@@ -23,7 +23,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ChatLinkDAOImplTest extends IntegrationEnvironment {
+class GitHubRepositoryIssueDAOImplTest extends IntegrationEnvironment {
     private static JdbcTemplate jdbcTemplate;
     private static ChatLinkDAO chatLinkDAO;
     private static ChatDAO chatDAO;

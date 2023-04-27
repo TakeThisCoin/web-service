@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 import ru.tinkoff.edu.java.scrapper.domain.dao.chat.ChatMapper;
 import ru.tinkoff.edu.java.scrapper.domain.dao.link.LinkDAO;
 import ru.tinkoff.edu.java.scrapper.domain.dao.link.LinkMapper;
+import ru.tinkoff.edu.java.scrapper.domain.dto.GitHubRepositoryIssueDTO;
 import ru.tinkoff.edu.java.scrapper.domain.dto.LinkDTO;
 
 import java.sql.Timestamp;
@@ -30,6 +31,15 @@ public class LinkDAOImpl implements LinkDAO {
     @Override
     public void remove(LinkDTO linkDTO) {
         jdbcTemplate.update("DELETE FROM link WHERE id = ?", linkDTO.id());
+    }
+
+    @Override
+    public boolean contains(String link) {
+        String sql = "SELECT count(*) FROM link WHERE url = ?";
+        boolean exists = false;
+        Integer count = jdbcTemplate.queryForObject(sql, Integer.class, link);
+        exists = count != null && count > 0;
+        return exists;
     }
 
     @Override

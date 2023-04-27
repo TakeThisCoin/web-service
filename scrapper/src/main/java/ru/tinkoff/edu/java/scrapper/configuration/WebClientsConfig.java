@@ -22,7 +22,8 @@ public class WebClientsConfig {
 
     @Bean
     StackOverflowClient stackOverflowClient(ApplicationConfig applicationConfig) {
-        return createWebClient(StackOverflowClient.class, applicationConfig.stackExchangeApiBaseUri().toString()+"/"+applicationConfig.stackExchangeApiVersion());
+        String baseUrl = applicationConfig.stackExchangeApiBaseUri()+"/"+applicationConfig.stackExchangeApiVersion();
+        return createWebClient(StackOverflowClient.class, baseUrl);
     }
 
     @Bean
