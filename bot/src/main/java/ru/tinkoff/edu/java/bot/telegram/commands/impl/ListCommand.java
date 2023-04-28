@@ -5,9 +5,9 @@ import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
-import ru.tinkoff.edu.java.bot.dto.responses.ListLinksResponse;
+import ru.tinkoff.edu.java.bot.webclients.scrapper.responses.ListLinksResponse;
 import ru.tinkoff.edu.java.bot.telegram.commands.Command;
-import ru.tinkoff.edu.java.bot.webclients.ScrapperClient;
+import ru.tinkoff.edu.java.bot.webclients.scrapper.ScrapperClient;
 
 @Component
 public class ListCommand implements Command {

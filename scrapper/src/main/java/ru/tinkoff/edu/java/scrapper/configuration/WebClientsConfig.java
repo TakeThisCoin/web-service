@@ -1,15 +1,14 @@
 package ru.tinkoff.edu.java.scrapper.configuration;
 
-import org.springframework.boot.context.properties.bind.DefaultValue;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.support.WebClientAdapter;
 import org.springframework.web.service.invoker.HttpServiceProxyFactory;
-import ru.tinkoff.edu.java.scrapper.webclients.BotClient;
-import ru.tinkoff.edu.java.scrapper.webclients.GitHubClient;
-import ru.tinkoff.edu.java.scrapper.webclients.StackOverflowClient;
+import ru.tinkoff.edu.java.scrapper.webclients.bot.BotClient;
+import ru.tinkoff.edu.java.scrapper.webclients.github.GitHubClient;
+import ru.tinkoff.edu.java.scrapper.webclients.stack_overflow.StackOverflowClient;
 
 @Validated
 @Configuration
