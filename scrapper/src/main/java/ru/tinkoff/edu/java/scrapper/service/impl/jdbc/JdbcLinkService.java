@@ -16,8 +16,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-@Component
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@RequiredArgsConstructor()
 public class JdbcLinkService implements LinkService {
     private final LinkDAO linkDAO;
     private final ChatLinkDAO chatLinkDAO;

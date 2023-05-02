@@ -16,6 +16,7 @@ import ru.tinkoff.edu.java.scrapper.rest_api.dto.responses.ApiErrorResponse;
 import ru.tinkoff.edu.java.scrapper.rest_api.dto.responses.LinkResponse;
 import ru.tinkoff.edu.java.scrapper.rest_api.dto.responses.ListLinksResponse;
 import ru.tinkoff.edu.java.scrapper.service.LinkService;
+import ru.tinkoff.edu.java.scrapper.service.impl.jpa.JpaLinkService;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -26,7 +27,7 @@ public class LinkController {
     private final LinkService linkService;
 
     @Autowired
-    public LinkController(JooqLinkService linkService){
+    public LinkController(LinkService linkService){
         this.linkService = linkService;
     }
 

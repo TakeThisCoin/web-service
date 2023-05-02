@@ -10,15 +10,15 @@ import org.springframework.web.bind.annotation.*;
 import ru.tinkoff.edu.java.scrapper.service.impl.jooq.JooqChatService;
 import ru.tinkoff.edu.java.scrapper.rest_api.dto.responses.ApiErrorResponse;
 import ru.tinkoff.edu.java.scrapper.service.ChatService;
+import ru.tinkoff.edu.java.scrapper.service.impl.jpa.JpaChatService;
 
 @RestController
 @RequestMapping("/tg-chat")
 public class ChatController {
-
     private final ChatService chatService;
 
     @Autowired
-    public ChatController(JooqChatService chatService){
+    public ChatController(ChatService chatService){
         this.chatService = chatService;
     }
 

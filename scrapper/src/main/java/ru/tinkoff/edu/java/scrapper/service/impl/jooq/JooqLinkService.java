@@ -24,8 +24,7 @@ import java.util.List;
 import static ru.tinkoff.edu.java.scrapper.service.impl.jooq.codegen.public_.tables.Link.LINK;
 
 @Slf4j
-@Component
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@RequiredArgsConstructor()
 public class JooqLinkService implements LinkService {
     private final DSLContext dslContext;
 

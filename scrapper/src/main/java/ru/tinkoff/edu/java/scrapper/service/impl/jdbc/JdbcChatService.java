@@ -7,8 +7,7 @@ import ru.tinkoff.edu.java.scrapper.domain.dao.chat.ChatDAO;
 import ru.tinkoff.edu.java.scrapper.domain.dto.ChatDTO;
 import ru.tinkoff.edu.java.scrapper.service.ChatService;
 
-@Component
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@RequiredArgsConstructor()
 public class JdbcChatService implements ChatService {
     private final ChatDAO chatDAO;
 

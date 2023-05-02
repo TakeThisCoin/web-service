@@ -2,6 +2,7 @@ package ru.tinkoff.edu.java.scrapper.domain.dao.chat_link.impl;
 
 import lombok.SneakyThrows;
 import migrations.IntegrationEnvironment;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -79,19 +80,6 @@ class GitHubRepositoryIssueDAOImplTest extends IntegrationEnvironment {
 
     @SneakyThrows
     @Test
-    void remove() {
-        ChatLinkDTO newChatLink = new ChatLinkDTO(chatDTO.id(), linkDTO.id());
-        newChatLink = chatLinkDAO.add(newChatLink);
-
-        chatLinkDAO.remove(newChatLink);
-
-        List<ChatLinkDTO> proof = jdbcTemplate.query("SELECT * FROM chat_link WHERE chat_id = ? AND link_id = ?;", new Object[]{newChatLink.chatId(), newChatLink.linkId()}, new ChatLinkMapper());
-
-        assertEquals(0, proof.size());
-    }
-
-    @SneakyThrows
-    @Test
     void findAll() {
         ChatLinkDTO newChatLink = new ChatLinkDTO(chatDTO.id(), linkDTO.id());
         newChatLink = chatLinkDAO.add(newChatLink);
@@ -104,5 +92,23 @@ class GitHubRepositoryIssueDAOImplTest extends IntegrationEnvironment {
 
         assertIterableEquals(expected, checkList);
         chatLinkDAO.remove(newChatLink);
+    }
+
+    @SneakyThrows
+    @Test
+    void remove() {
+        ChatLinkDTO newChatLink = new ChatLinkDTO(chatDTO.id(), linkDTO.id());
+        newChatLink = chatLinkDAO.add(newChatLink);
+
+        chatLinkDAO.remove(newChatLink);
+
+        List<ChatLinkDTO> proof = jdbcTemplate.query("SELECT * FROM chat_link WHERE chat_id = ? AND link_id = ?;", new Object[]{newChatLink.chatId(), newChatLink.linkId()}, new ChatLinkMapper());
+
+        assertEquals(0, proof.size());
+    }
+
+    @AfterAll
+    static void clearDB(){
+        linkDAO.remove(linkDTO);
     }
 }
