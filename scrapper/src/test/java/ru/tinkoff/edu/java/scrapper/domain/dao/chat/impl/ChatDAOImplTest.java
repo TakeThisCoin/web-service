@@ -68,8 +68,10 @@ class ChatDAOImplTest extends IntegrationEnvironment {
     @Test
     void remove() {
         long id = 675;
-        ChatDTO newChat = new ChatDTO(id);
-        chatDAO.add(newChat);
+        ChatDTO newChat = chatDAO.add(new ChatDTO(id));
+
+        assertEquals(newChat, chatDAO.findById(id));
+
         chatDAO.remove(newChat);
 
         List<ChatDTO> proof = jdbcTemplate.query("SELECT * FROM chat WHERE id = ?;", new Object[]{id}, new ChatMapper());
