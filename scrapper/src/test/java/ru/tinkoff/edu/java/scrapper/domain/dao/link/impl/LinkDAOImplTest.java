@@ -6,10 +6,8 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import ru.tinkoff.edu.java.scrapper.domain.dao.chat.ChatMapper;
 import ru.tinkoff.edu.java.scrapper.domain.dao.link.LinkDAO;
 import ru.tinkoff.edu.java.scrapper.domain.dao.link.LinkMapper;
-import ru.tinkoff.edu.java.scrapper.domain.dto.ChatDTO;
 import ru.tinkoff.edu.java.scrapper.domain.dto.LinkDTO;
 
 import javax.sql.DataSource;

@@ -8,8 +8,7 @@ import ru.tinkoff.edu.java.scrapper.service.ChatService;
 import ru.tinkoff.edu.java.scrapper.service.impl.jooq.codegen.public_.tables.Chat;
 import ru.tinkoff.edu.java.scrapper.service.impl.jooq.codegen.public_.tables.records.ChatRecord;
 
-@Component
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@RequiredArgsConstructor()
 public class JooqChatService implements ChatService{
     private final DSLContext dslContext;
 
