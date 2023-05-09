@@ -16,6 +16,8 @@ public record ApplicationConfig(@NotNull @DefaultValue("https://api.github.com")
                                 @NotNull @DefaultValue("https://api.stackexchange.com") URI stackExchangeApiBaseUri,
                                 @NotNull @DefaultValue("http://localhost:8080") URI botBaseUri,
                                 @NotEmpty @DefaultValue("2.3") String stackExchangeApiVersion,
+                                @NotNull BotClientSender botClientSender,
+                                AmqpConfig amqp,
                                 @NotNull Duration scheduler,
                                 @NotNull Duration checkDelaySOLinks,
                                 @NotNull Duration checkDelayGitHubLinks,

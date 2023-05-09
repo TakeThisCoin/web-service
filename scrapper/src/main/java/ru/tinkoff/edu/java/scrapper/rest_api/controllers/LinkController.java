@@ -8,15 +8,13 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import ru.tinkoff.edu.java.scrapper.service.entities.Link;
-import ru.tinkoff.edu.java.scrapper.service.impl.jooq.JooqLinkService;
+import ru.tinkoff.edu.java.scrapper.entities.Link;
 import ru.tinkoff.edu.java.scrapper.rest_api.dto.requests.AddLinkRequest;
 import ru.tinkoff.edu.java.scrapper.rest_api.dto.requests.RemoveLinkRequest;
 import ru.tinkoff.edu.java.scrapper.rest_api.dto.responses.ApiErrorResponse;
 import ru.tinkoff.edu.java.scrapper.rest_api.dto.responses.LinkResponse;
 import ru.tinkoff.edu.java.scrapper.rest_api.dto.responses.ListLinksResponse;
 import ru.tinkoff.edu.java.scrapper.service.LinkService;
-import ru.tinkoff.edu.java.scrapper.service.impl.jpa.JpaLinkService;
 
 import java.util.ArrayList;
 import java.util.Collection;

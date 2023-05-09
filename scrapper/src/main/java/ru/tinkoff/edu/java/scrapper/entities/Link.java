@@ -1,4 +1,4 @@
-package ru.tinkoff.edu.java.scrapper.service.entities;
+package ru.tinkoff.edu.java.scrapper.entities;
 
 import java.net.URI;
 import java.sql.Timestamp;

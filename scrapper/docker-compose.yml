@@ -44,5 +44,16 @@ services:
     networks:
       - backend
       
+  rabbitmq-brocker:
+    image: rabbitmq:3-management
+    restart: always
+    volumes:
+      - ./rabbitmq:/var/lib/rabbitmq
+    ports:
+      - 5052:15672
+      - 5672:5672
+    networks:
+      - backend
+      
 networks:
   backend:

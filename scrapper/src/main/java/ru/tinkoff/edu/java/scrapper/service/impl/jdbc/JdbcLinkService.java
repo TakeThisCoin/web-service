@@ -2,14 +2,12 @@ package ru.tinkoff.edu.java.scrapper.service.impl.jdbc;
 
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import ru.tinkoff.edu.java.scrapper.domain.dao.chat_link.ChatLinkDAO;
 import ru.tinkoff.edu.java.scrapper.domain.dao.link.LinkDAO;
 import ru.tinkoff.edu.java.scrapper.domain.dto.ChatLinkDTO;
 import ru.tinkoff.edu.java.scrapper.domain.dto.LinkDTO;
 import ru.tinkoff.edu.java.scrapper.service.LinkService;
-import ru.tinkoff.edu.java.scrapper.service.entities.Link;
+import ru.tinkoff.edu.java.scrapper.entities.Link;
 
 import java.net.URI;
 import java.util.ArrayList;

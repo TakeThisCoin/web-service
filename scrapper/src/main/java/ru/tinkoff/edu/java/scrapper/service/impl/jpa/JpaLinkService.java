@@ -2,10 +2,8 @@ package ru.tinkoff.edu.java.scrapper.service.impl.jpa;
 
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import ru.tinkoff.edu.java.scrapper.service.LinkService;
-import ru.tinkoff.edu.java.scrapper.service.entities.Link;
+import ru.tinkoff.edu.java.scrapper.entities.Link;
 import ru.tinkoff.edu.java.scrapper.service.impl.jpa.entities.ChatJpa;
 import ru.tinkoff.edu.java.scrapper.service.impl.jpa.entities.LinkJpa;
 import ru.tinkoff.edu.java.scrapper.service.impl.jpa.repositories.ChatRepositoryJpa;
