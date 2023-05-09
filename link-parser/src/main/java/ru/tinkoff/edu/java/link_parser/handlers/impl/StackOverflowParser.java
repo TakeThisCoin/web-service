@@ -1,7 +1,11 @@
 package ru.tinkoff.edu.java.link_parser.handlers.impl;
 
-import ru.tinkoff.edu.java.link_parser.ParserAnswer;
+import lombok.SneakyThrows;
+import ru.tinkoff.edu.java.link_parser.answers.ParserAnswer;
+import ru.tinkoff.edu.java.link_parser.answers.impl.StackOverflowAnswer;
 import ru.tinkoff.edu.java.link_parser.handlers.Parser;
+
+import java.net.URI;
 
 public class StackOverflowParser extends Parser {
 
@@ -9,31 +13,34 @@ public class StackOverflowParser extends Parser {
         super(nextParser);
     }
 
+    @SneakyThrows
     @Override
-    public ParserAnswer handle(final String entry) {
-        if(!entry.contains("://") || entry.split("://").length != 2)
-            return toNextHandler(entry);
+    public ParserAnswer handle(final URI uri) {
+        String url = uri.toString();
 
-        final String entryWithoutProtocol = entry.split("://")[1];
+        if(!url.contains("://") || url.split("://").length != 2)
+            return toNextHandler(new URI(url));
+
+        final String entryWithoutProtocol = url.split("://")[1];
 
         if(!entryWithoutProtocol.contains("/") || entryWithoutProtocol.split("/").length < 2)
-            return toNextHandler(entry);
+            return toNextHandler(new URI(url));
 
         final String hostname = entryWithoutProtocol.split("/")[0];
         final String path = entryWithoutProtocol.substring(hostname.length()+1);
 
         if(!hostname.equals("stackoverflow.com"))
-            return toNextHandler(entry);
+            return toNextHandler(new URI(url));
 
         if(!path.contains("questions/") || path.split("questions/").length < 2)
-            return toNextHandler(entry);
+            return toNextHandler(new URI(url));
 
         final String id = path.split("questions/")[1].split("/")[0];
 
         if(id.matches("\\d+")){
-            return new ParserAnswer(id);
+            return new StackOverflowAnswer(id);
         }else {
-            return toNextHandler(entry);
+            return toNextHandler(new URI(url));
         }
     }
 }

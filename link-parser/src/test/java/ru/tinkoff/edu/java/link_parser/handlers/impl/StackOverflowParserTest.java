@@ -1,9 +1,13 @@
 package ru.tinkoff.edu.java.link_parser.handlers.impl;
 
+import lombok.SneakyThrows;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import ru.tinkoff.edu.java.link_parser.ParserAnswer;
+import ru.tinkoff.edu.java.link_parser.answers.ParserAnswer;
+
+import java.net.URI;
+import java.sql.Timestamp;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -16,22 +20,28 @@ class StackOverflowParserTest {
         stackOverflowParser = new StackOverflowParser(null);
     }
 
+    @SneakyThrows
     @Test
     public void parseValidLink(){
-        ParserAnswer parserAnswer = stackOverflowParser.handle("https://stackoverflow.com/questions/1642028/what-is-the-operator-in-c");
-        Assertions.assertEquals("1642028", parserAnswer.value());
+        String url = "https://stackoverflow.com/questions/1642028/what-is-the-operator-in-c";
+        ParserAnswer parserAnswer = stackOverflowParser.handle(new URI(url));
+        Assertions.assertEquals("1642028", parserAnswer.getValue());
     }
 
+    @SneakyThrows
     @Test
     public void parseInvalidLink_Host(){
-        ParserAnswer parserAnswer = stackOverflowParser.handle("https://stackoSverflow.com/questions/1642028/what-is-the-operator-in-c");
-        Assertions.assertNull(parserAnswer.value());
+        String url = "https://stackoSverflow.com/questions/1642028/what-is-the-operator-in-c";
+        ParserAnswer parserAnswer = stackOverflowParser.handle(new URI(url));
+        Assertions.assertNull(parserAnswer.getValue());
     }
 
+    @SneakyThrows
     @Test
     public void parseInvalidLink_IncorrectPath(){
-        ParserAnswer parserAnswer = stackOverflowParser.handle("https://stackoverflow.com/search?q=unsupported%20link");
-        Assertions.assertNull(parserAnswer.value());
+        String url = "https://stackoverflow.com/search?q=unsupported%20link";
+        ParserAnswer parserAnswer = stackOverflowParser.handle(new URI(url));
+        Assertions.assertNull(parserAnswer.getValue());
     }
 
 }

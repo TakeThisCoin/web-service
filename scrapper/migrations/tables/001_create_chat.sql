@@ -2,5 +2,5 @@
 
 --changeset TakeThisCoin:1
 CREATE TABLE IF NOT EXISTS chat(
-    id bigint NOT NULL PRIMARY KEY
+    id bigint PRIMARY KEY
 );
