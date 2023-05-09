@@ -17,11 +17,11 @@ import ru.tinkoff.edu.java.scrapper.domain.dto.ChatLinkDTO;
 import ru.tinkoff.edu.java.scrapper.domain.dto.GitHubRepositoryIssueDTO;
 import ru.tinkoff.edu.java.scrapper.domain.dto.LinkDTO;
 import ru.tinkoff.edu.java.scrapper.domain.dto.AnswerCountSODTO;
+import ru.tinkoff.edu.java.scrapper.service.amqp.BotClientSender;
 import ru.tinkoff.edu.java.scrapper.webclients.github.responses.GitHubRepositoryIssuesResponse;
 import ru.tinkoff.edu.java.scrapper.webclients.bot.requests.BotUpdatesRequest;
 import ru.tinkoff.edu.java.scrapper.webclients.stack_overflow.responses.StackExchangeQuestionResponse;
 import ru.tinkoff.edu.java.scrapper.webclients.stack_overflow.responses.StackExchangeQuestionsResponse;
-import ru.tinkoff.edu.java.scrapper.webclients.bot.BotClient;
 import ru.tinkoff.edu.java.scrapper.webclients.github.GitHubClient;
 import ru.tinkoff.edu.java.scrapper.webclients.stack_overflow.StackOverflowClient;
 
@@ -42,7 +42,7 @@ public class LinkUpdaterScheduler {
     private final GitHubRepositoryIssueDAO gitHubRepositoryIssueDAO;
     private final GitHubClient gitHubClient;
     private final StackOverflowClient stackOverflowClient;
-    private final BotClient botClient;
+    private final BotClientSender botClientSender;
 
     private final LinkParser linkParser = new LinkParser();
 
@@ -54,7 +54,7 @@ public class LinkUpdaterScheduler {
                                 GitHubRepositoryIssueDAO gitHubRepositoryIssueDAO,
                                 GitHubClient gitHubClient,
                                 StackOverflowClient stackOverflowClient,
-                                BotClient botClient){
+                                BotClientSender botClientSender){
         this.checkDelaySOLinks = applicationConfig.checkDelaySOLinks();
         this.checkDelayGitHubLinks = applicationConfig.checkDelayGitHubLinks();
         this.chatLinkDAO = chatLinkDAO;
@@ -63,7 +63,7 @@ public class LinkUpdaterScheduler {
         this.gitHubRepositoryIssueDAO = gitHubRepositoryIssueDAO;
         this.gitHubClient = gitHubClient;
         this.stackOverflowClient = stackOverflowClient;
-        this.botClient = botClient;
+        this.botClientSender = botClientSender;
     }
 
     @Scheduled(fixedDelayString = "#{@schedulerIntervalMs}")
@@ -118,7 +118,7 @@ public class LinkUpdaterScheduler {
                 BotUpdatesRequest request = new BotUpdatesRequest(link.url(),
                         "\uD83D\uDC4C\uD83C\uDFFBНовые ответы ("+countNewAnswers+") на StackOverflow!\n" +
                                 "-"+link.url(), tgChatIds);
-                botClient.sendUpdates(request);
+                botClientSender.send(request);
             }
         }
 
@@ -157,7 +157,7 @@ public class LinkUpdaterScheduler {
                 BotUpdatesRequest request = new BotUpdatesRequest(link.url(),
                         "✋\uD83C\uDFFBНовая не разрешённая проблема на GitHub!\n" +
                                 "-"+issue.html_url(), tgChatIds);
-                botClient.sendUpdates(request);
+                botClientSender.send(request);
             }
         }
 

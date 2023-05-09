@@ -1,6 +1,6 @@
 package ru.tinkoff.edu.java.scrapper.service;
 
-import ru.tinkoff.edu.java.scrapper.service.entities.Link;
+import ru.tinkoff.edu.java.scrapper.entities.Link;
 
 import java.net.URI;
 import java.util.Collection;
